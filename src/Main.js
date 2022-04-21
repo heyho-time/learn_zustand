@@ -1,13 +1,25 @@
 import React from "react";
-import create from "zustand";
-
-export const useStore = create((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-}));
+import useStore from "./store";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-  return <p>Main page</p>;
+  // const bears = useStore((state) => state.bears);
+  const { bears, increasePopulation, removeAllBears } = useStore();
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <p>{bears}Main page</p>
+      <div>
+        <button onClick={increasePopulation}>plus</button>
+      </div>
+      <div>
+        <button onClick={removeAllBears}>reset</button>
+      </div>
+      <div>
+        <button onClick={() => navigate("/bear")}>go</button>
+      </div>
+    </>
+  );
 };
 export default Main;
